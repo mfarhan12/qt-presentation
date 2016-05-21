@@ -3,23 +3,28 @@
 from PySide import QtGui, QtCore
 import sys
 TEXT_ITEMS = ['ITEM1', 'ITEM2', 'ITEM3']
-class simpleWidget(QtGui.QWidget):
+class Calculator(QtGui.QWidget):
+    finishedCalculation = QtCore.Signal(float, float, str, str)
     def __init__(self):
-        super(simpleWidget, self).__init__()
+        super(Calculator, self).__init__()
+
         self.setWindowTitle('Controls Widget')
         self.setGeometry(300, 300, 50, 50)
+
         grid = QtGui.QGridLayout()
+
         self._num1 = 0
         self._num2 = 0
         self._operation = '+'
+
         self.add = QtGui.QRadioButton('+')
         self.add.click()
         self.sub = QtGui.QRadioButton('-')
         self.mul = QtGui.QRadioButton('X')
         self.div = QtGui.QRadioButton('/')
+
         self.spin1 = QtGui.QDoubleSpinBox()
         self.spin2 = QtGui.QDoubleSpinBox()
-        self.result_label = QtGui.QLabel('')
 
         grid.addWidget(self.spin1, 0,0,1,1)
         grid.addWidget(self.spin2, 0,1,1,1)
@@ -27,7 +32,6 @@ class simpleWidget(QtGui.QWidget):
         grid.addWidget(self.sub, 1,1,1,1)
         grid.addWidget(self.mul, 1,2,1,1)
         grid.addWidget(self.div, 1,3,1,1)
-        grid.addWidget(self.result_label, 2,0,1,2)
 
         self._connect_controls()
         self._calculate_result()
@@ -54,7 +58,6 @@ class simpleWidget(QtGui.QWidget):
         self.mul.clicked.connect(lambda: update_operation(self.mul))
 
     def _calculate_result(self):
-
         try:
             if self._operation == '+':
                 result = self._num1 + self._num2
@@ -64,10 +67,27 @@ class simpleWidget(QtGui.QWidget):
                 result = self._num1 * self._num2
             if self._operation == '/':
                 result = self._num1 / self._num2
-            self.result_label.setText('%0.4f' % (result))
+            self.finishedCalculation.emit(self._num1, self._num2, self._operation, '%0.4f' % result)
 
-        except zeroDivisionError:
-                self.result_label.setText('INF')
+        except ZeroDivisionError:
+            self.finishedCalculation.emit(self._num1, self._num2, self._operation, 'INF')
+class simpleWidget(QtGui.QWidget):
+    def __init__(self):
+        super(simpleWidget, self).__init__()
+        self.setWindowTitle('Calculator')
+        self.calculator = Calculator()
+        self.list = QtGui.QListWidget()
+        grid = QtGui.QGridLayout()
+        grid.addWidget(self.calculator, 0,0,1,1)
+        grid.addWidget(self.list, 1,0,1,1)
+        self.setLayout(grid)
+
+        def got_result(num1,num2, operation, result):
+            txt = ('%0.4f %s %0.4f = %s' % (num1, operation, num2, result))
+            self.list.addItem(txt)
+        self.calculator.finishedCalculation.connect(got_result)
+        self.show()
+
 # Launch the application
 app = QtGui.QApplication(sys.argv)
 ex = simpleWidget()
