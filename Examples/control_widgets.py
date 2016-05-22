@@ -2,6 +2,7 @@
 
 from PySide import QtGui, QtCore
 import sys
+
 TEXT_ITEMS = ['ITEM1', 'ITEM2', 'ITEM3']
 class simpleWidget(QtGui.QWidget):
     def __init__(self):
@@ -17,13 +18,15 @@ class simpleWidget(QtGui.QWidget):
         combobox = QtGui.QComboBox()
         combobox.addItems(TEXT_ITEMS)
         spinbox = QtGui.QSpinBox()
+        checkbox = QtGui.QCheckBox('Check Box')
 
         grid.addWidget(text_box, 0,0,1,1)
         grid.addWidget(button, 0,1,1,1)
         grid.addWidget(radio1, 1,0,1,1)
         grid.addWidget(radio2, 1,1,1,1)
         grid.addWidget(spinbox, 2,0,1,1)
-        grid.addWidget(combobox, 3,0,1,2)
+        grid.addWidget(combobox, 3,0,1,1)
+        grid.addWidget(checkbox, 3,1,1,1)
         self.setLayout(grid)
         self.show()
 

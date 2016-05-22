@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 
 from PySide import QtGui, QtCore
-import sys
 import numpy as np
 from scipy import signal
-import pyqtgraph as pg
 SAMPLES = ['128',
            '256',
            '512',
@@ -13,23 +11,28 @@ SAMPLES = ['128',
            '8192',
            '16384',
            '32768']
-class SignalGenerator(QtGui.QGroupBox):
-    newArray = QtCore.Signal(list)
+
+class WaveGenerator(QtGui.QGroupBox):
+    new_signal = QtCore.Signal(list)
+    _freq = 5.0
+    _n_samples = 1024
+    _amp = 5.0
+    _phase = 0.0
+    _operation = 'Sine'
+
     def __init__(self, title = 'Signal Generator'):
-        super(SignalGenerator, self).__init__()
+        super(WaveGenerator, self).__init__()
 
         grid = QtGui.QGridLayout()
         self.setTitle(title)
-        self._freq = 5.0
-        self._n_samples = 1024
-        self._amp = 5.0
-        self._phase = 0.0
-        self._operation = 'Sine'
+
+        x = np.linspace(0, 1, self._n_samples)
+        self.wave = self._amp * np.sin((2 * np.pi * self._freq * x) + self._phase)
 
         self._sine_button = QtGui.QRadioButton('Sine')
-        self._sine_button.click()
 
         self._square_button = QtGui.QRadioButton('square')
+        self._square_button.click()
 
         self._freq_spin = QtGui.QDoubleSpinBox()
         self._freq_spin.setRange(0.0001, 20000)
@@ -63,9 +66,9 @@ class SignalGenerator(QtGui.QGroupBox):
         grid.addWidget(self._sample_combo, 2,3,1,1)
 
         self._connect_controls()
-        self._calculate_list()
-        self._calculate_list()
+        self._generate_signal()
         self.setLayout(grid)
+        self.setSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Maximum)
         self.show()
 
     def _connect_controls(self):
@@ -79,7 +82,7 @@ class SignalGenerator(QtGui.QGroupBox):
                 self._operation = 'sine'
             else:
                 self._operation = 'square'
-            self._calculate_list()
+            self._generate_signal()
         self._freq_spin.valueChanged.connect(update_signal)
         self._amp_spin.valueChanged.connect(update_signal)
         self._phase_spin.valueChanged.connect(update_signal)
@@ -87,35 +90,12 @@ class SignalGenerator(QtGui.QGroupBox):
         self._sine_button.clicked.connect(update_signal)
         self._square_button.clicked.connect(update_signal)
 
-    def _calculate_list(self):
+    def _generate_signal(self):
         if self._operation == 'sine':
             x = np.linspace(0, 1, self._n_samples)
-            y = self._amp * np.sin((2 * np.pi * self._freq * x) + self._phase)
-            self.newArray.emit(y)
+            self.wave = self._amp * np.sin((2 * np.pi * self._freq * x) + self._phase)
+            self.new_signal.emit(self.wave)
         else:
             x = np.linspace(0, 1, self._n_samples)
-            y = self._amp * signal.square((2 * np.pi *self._freq * x) + self._phase)
-            self.newArray.emit(y)
-
-class simpleWidget(QtGui.QWidget):
-    def __init__(self):
-        super(simpleWidget, self).__init__()
-        self.setWindowTitle('Signal Generator')
-        self.sig_gen = SignalGenerator()
-        self.plot = pg.PlotWidget()
-        self.curve = self.plot.plot(pen = 'g')
-        grid = QtGui.QGridLayout()
-        grid.addWidget(self.sig_gen, 0,0,1,1)
-        grid.addWidget(self.plot, 1,0,1,1)
-        self.setLayout(grid)
-
-        def plot_data(data):
-            self.curve.setData(data)
-        self.sig_gen.newArray.connect(plot_data)
-
-        self.show()
-
-# Launch the application
-app = QtGui.QApplication(sys.argv)
-ex = simpleWidget()
-sys.exit(app.exec_())
+            self.wave = self._amp * signal.square((2 * np.pi *self._freq * x) + self._phase)
+            self.new_signal.emit(self.wave)
