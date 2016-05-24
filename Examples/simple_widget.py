@@ -4,7 +4,7 @@ import sys
 class simpleWidget(QtGui.QWidget):
     def __init__(self):
         super(simpleWidget, self).__init__()
-        self.setWindowTitle('First WIdget')
+        self.setWindowTitle('First Widget')
         self.show()
 
 # Launch the application
