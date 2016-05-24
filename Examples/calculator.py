@@ -2,16 +2,18 @@
 
 from PySide import QtGui, QtCore
 import sys
-TEXT_ITEMS = ['ITEM1', 'ITEM2', 'ITEM3']
-class simpleWidget(QtGui.QWidget):
+
+class CalculatorWidget(QtGui.QWidget):
+    _num1 = 0
+    _num2 = 0
+    _operation = '+'
+
     def __init__(self):
-        super(simpleWidget, self).__init__()
-        self.setWindowTitle('Controls Widget')
+        super(CalculatorWidget, self).__init__()
+        self.setWindowTitle('Calculator Widget')
         self.setGeometry(300, 300, 50, 50)
         grid = QtGui.QGridLayout()
-        self._num1 = 0
-        self._num2 = 0
-        self._operation = '+'
+        
         self.add = QtGui.QRadioButton('+')
         self.add.click()
         self.sub = QtGui.QRadioButton('-')
@@ -19,10 +21,11 @@ class simpleWidget(QtGui.QWidget):
         self.div = QtGui.QRadioButton('/')
         self.spin1 = QtGui.QDoubleSpinBox()
         self.spin2 = QtGui.QDoubleSpinBox()
+ 
         self.result_label = QtGui.QLabel('')
 
-        grid.addWidget(self.spin1, 0,0,1,1)
-        grid.addWidget(self.spin2, 0,1,1,1)
+        grid.addWidget(self.spin1, 0,0,1,2)
+        grid.addWidget(self.spin2, 0,2,1,2)
         grid.addWidget(self.add, 1,0,1,1)
         grid.addWidget(self.sub, 1,1,1,1)
         grid.addWidget(self.mul, 1,2,1,1)
@@ -66,9 +69,10 @@ class simpleWidget(QtGui.QWidget):
                 result = self._num1 / self._num2
             self.result_label.setText('%0.4f' % (result))
 
-        except zeroDivisionError:
+        except ZeroDivisionError:
                 self.result_label.setText('INF')
+        
 # Launch the application
 app = QtGui.QApplication(sys.argv)
-ex = simpleWidget()
+ex = CalculatorWidget()
 sys.exit(app.exec_())

@@ -4,7 +4,7 @@ from PySide import QtGui, QtCore
 import sys
 TEXT_ITEMS = ['ITEM1', 'ITEM2', 'ITEM3']
 class Calculator(QtGui.QWidget):
-    finishedCalculation = QtCore.Signal(float, float, str, str)
+    new_calculation = QtCore.Signal(float, float, str, str)
     def __init__(self):
         super(Calculator, self).__init__()
 
@@ -45,8 +45,8 @@ class Calculator(QtGui.QWidget):
             self._num2 = self.spin2.value()
             self._calculate_result()
 
-        self.spin1.editingFinished.connect(update_num)
-        self.spin2.editingFinished.connect(update_num)
+        self.spin1.valueChanged.connect(update_num)
+        self.spin2.valueChanged.connect(update_num)
 
         def update_operation(widget):
             self._operation = widget.text()
@@ -67,13 +67,14 @@ class Calculator(QtGui.QWidget):
                 result = self._num1 * self._num2
             if self._operation == '/':
                 result = self._num1 / self._num2
-            self.finishedCalculation.emit(self._num1, self._num2, self._operation, '%0.4f' % result)
+            self.new_calculation.emit(self._num1, self._num2, self._operation, '%0.4f' % result)
 
         except ZeroDivisionError:
-            self.finishedCalculation.emit(self._num1, self._num2, self._operation, 'INF')
-class simpleWidget(QtGui.QWidget):
+            self.new_calculation.emit(self._num1, self._num2, self._operation, 'INF')
+
+            class CalculatorWidget(QtGui.QWidget):
     def __init__(self):
-        super(simpleWidget, self).__init__()
+        super(CalculatorWidget, self).__init__()
         self.setWindowTitle('Calculator')
         self.calculator = Calculator()
         self.list = QtGui.QListWidget()
@@ -85,10 +86,10 @@ class simpleWidget(QtGui.QWidget):
         def got_result(num1,num2, operation, result):
             txt = ('%0.4f %s %0.4f = %s' % (num1, operation, num2, result))
             self.list.addItem(txt)
-        self.calculator.finishedCalculation.connect(got_result)
+        self.calculator.new_calculation.connect(got_result)
         self.show()
 
 # Launch the application
 app = QtGui.QApplication(sys.argv)
-ex = simpleWidget()
+ex = CalculatorWidget()
 sys.exit(app.exec_())
