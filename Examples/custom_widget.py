@@ -72,7 +72,7 @@ class Calculator(QtGui.QWidget):
         except ZeroDivisionError:
             self.new_calculation.emit(self._num1, self._num2, self._operation, 'INF')
 
-            class CalculatorWidget(QtGui.QWidget):
+class CalculatorWidget(QtGui.QWidget):
     def __init__(self):
         super(CalculatorWidget, self).__init__()
         self.setWindowTitle('Calculator')
