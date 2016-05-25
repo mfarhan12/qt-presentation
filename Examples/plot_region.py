@@ -23,7 +23,8 @@ class PlotExample(QtGui.QWidget):
         region_plot.plot(data)
 
         def updatePlot():
-            region_plot.setXRange(*region_selector.getRegion(), padding=0)
+            region_plot.setXRange(region_selector.getRegion()[0],
+                                    region_selector.getRegion()[1], padding=0)
 
         def updateRegion():
             region_selector.setRegion(region_plot.getViewBox().viewRange()[0])

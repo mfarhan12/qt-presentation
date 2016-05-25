@@ -24,7 +24,6 @@ class PlotExample(QtGui.QWidget):
         self.timer.timeout.connect(self._update_plot)
         self.timer.start(50)
     def _update_plot(self):
-
         x = np.linspace(0, 1, 1024)
         freq = self.freqs[self.index]
         self.index += 1
