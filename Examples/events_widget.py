@@ -14,7 +14,7 @@ class EventWidget(QtGui.QWidget):
         print event.button()
 
     def keyPressEvent(self, event):
-        print event.key()
+        print event.text()
 
     def moveEvent(self, event):
         print event.pos()
