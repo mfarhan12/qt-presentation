@@ -10,7 +10,7 @@ import pyqtgraph as pg
 class WaveGeneratorApp(QtGui.QWidget):
     def __init__(self):
         super(WaveGeneratorApp, self).__init__()
-        self.setWindowTitle('Signal Generator')
+        self.setWindowTitle('Wave Generator')
         self.wave_gen = WaveGenerator()
         self.plot_controls = PlotControls()
         self.plot_controls.config_change.connect(self.update_config)

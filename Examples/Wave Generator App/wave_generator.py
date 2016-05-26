@@ -20,7 +20,7 @@ class WaveGenerator(QtGui.QGroupBox):
     _phase = 0.0
     _operation = 'Sine'
 
-    def __init__(self, title = 'Signal Generator'):
+    def __init__(self, title = 'Wave Generator'):
         super(WaveGenerator, self).__init__()
 
         grid = QtGui.QGridLayout()
