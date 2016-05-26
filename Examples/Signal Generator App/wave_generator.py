@@ -44,6 +44,7 @@ class WaveGenerator(QtGui.QGroupBox):
 
         self._phase_spin = QtGui.QDoubleSpinBox()
         self._phase_spin.setValue(self._phase)
+        self._phase_spin.setDecimals(6)
 
         self._sample_combo = QtGui.QComboBox()
         self._sample_combo.addItems(SAMPLES)
