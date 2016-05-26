@@ -1,21 +1,21 @@
-import numpy as np
-import pyqtgraph as pg
+#!/usr/bin/env python
+
 from PySide import QtGui, QtCore
 import sys
-import random
+import numpy as np
+import pyqtgraph as pg
 
-class PlotExample(QtGui.QWidget):
 
-    freqs = np.concatenate([np.arange(0, 15, 1), np.arange(0, 15, 1)[::-1]])
+class PLotExample(QtGui.QWidget):
+    freqs = np.concatenate([np.arange(1, 15, 1), np.arange(1, 15, 1)[::-1]])
     index = 0
-    
     def __init__(self):
-        super(PlotExample, self).__init__()
-        self.setWindowTitle("Plot Example")
-        grid = QtGui.QGridLayout()
-        line_plot = pg.PlotWidget(title="Updating Plot")
+        super(PLotExample, self).__init__()
+        self.setWindowTitle('Updating PLot')
+
+        line_plot = pg.PlotWidget()
         self.curve = line_plot.plot(pen = "y")
- 
+        grid = QtGui.QGridLayout()
 
         grid.addWidget(line_plot,1,0,1,3)
         self.setLayout(grid)
@@ -33,10 +33,9 @@ class PlotExample(QtGui.QWidget):
         self.curve.setData(wave)
 
 
-
+        self.show()
 
 # Launch the application
 app = QtGui.QApplication(sys.argv)
-ex = PlotExample()
+ex = PLotExample()
 sys.exit(app.exec_())
-
