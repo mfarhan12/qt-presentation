@@ -6,7 +6,7 @@ import random
 import sys
 
 class ThreeDPlot(QtGui.QWidget):
-    amp = 3
+    amp = 5
     x_size = 160
     y_size = 150
     rand_noise = False
