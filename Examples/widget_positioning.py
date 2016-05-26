@@ -5,7 +5,7 @@ class PositioningWidget(QtGui.QWidget):
     def __init__(self):
 		super(PositioningWidget, self).__init__()
 		self.setWindowTitle('Positioning Widget')
-		self.setGeometry(300, 300, 50, 50)
+		self.setGeometry(300, 300, 300, 300)
 		grid = QtGui.QGridLayout()
 		green_label = QtGui.QLabel('')
 		green_label.setStyleSheet('background-color: green')

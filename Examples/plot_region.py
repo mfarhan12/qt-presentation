@@ -1,19 +1,20 @@
-import numpy as np
-import pyqtgraph as pg
+#!/usr/bin/env python
+
 from PySide import QtGui, QtCore
 import sys
-import random
+import numpy as np
+import pyqtgraph as pg
 
-class PlotExample(QtGui.QWidget):
+
+class PLotExample(QtGui.QWidget):
     def __init__(self):
-        super(PlotExample, self).__init__()
-        self.setWindowTitle("Plot Example")
-        grid = QtGui.QGridLayout()
-        
+        super(PLotExample, self).__init__()
+        self.setWindowTitle('Simple PLot')
         x = np.linspace(-100, 100, 1000)
         data = np.sin(x) / x
-        
-        full_plot =  pg.PlotWidget(title="Region Selection")
+
+
+        full_plot =  pg.PlotWidget()
         full_plot.plot(data, pen=(255,255,255,200))
         region_selector = pg.LinearRegionItem([400,700])
 
@@ -32,16 +33,14 @@ class PlotExample(QtGui.QWidget):
         region_selector.sigRegionChanged.connect(updatePlot)
         region_plot.sigXRangeChanged.connect(updateRegion)
         updatePlot()
+        grid = QtGui.QGridLayout()
 
         grid.addWidget(full_plot,0,0,1,3)
         grid.addWidget(region_plot,1,0,1,3)
-
         self.setLayout(grid)
         self.show()
 
-
-
 # Launch the application
 app = QtGui.QApplication(sys.argv)
-ex = PlotExample()
+ex = PLotExample()
 sys.exit(app.exec_())

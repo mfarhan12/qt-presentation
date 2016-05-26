@@ -43,7 +43,7 @@ class ThreeDPlot(QtGui.QWidget):
         plot_widget.addItem(curve)
 
         grid = QtGui.QGridLayout()
-        grid.addWidget(w, 0,0,13,12)
+        grid.addWidget(plot_widget, 0,0,13,12)
         grid.addWidget(QtGui.QLabel('Amplitude'), 0,13,1,1)
         grid.addWidget(self.amplitude_spin, 0,14,1,1)
         grid.addWidget(QtGui.QLabel('X Size'), 1,13,1,1)
