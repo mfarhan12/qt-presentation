@@ -15,7 +15,7 @@ class ThreeDPlot(QtGui.QWidget):
     def __init__(self):
         super(ThreeDPlot, self).__init__()
         self.setGeometry(300, 300, 800, 350)
-        w = gl.GLViewWidget()
+        plot_widget = gl.GLViewWidget()
         self.rand_check = QtGui.QCheckBox('Enable Noise')
         self.amplitude_spin = QtGui.QDoubleSpinBox()
         self.amplitude_spin.setRange(1, 50)
@@ -30,17 +30,17 @@ class ThreeDPlot(QtGui.QWidget):
         self.y_spin.setRange(1, 800)
         self.y_spin.setValue(self.y_size)
 
-        w.setWindowTitle('pyqtgraph example: GLSurfacePlot')
-        w.setCameraPosition(distance=500)
+        plot_widget.setWindowTitle('pyqtgraph example: GLSurfacePlot')
+        plot_widget.setCameraPosition(distance=500)
         g = gl.GLGridItem()
         g.scale(20,20,1)
         g.setDepthValue(10)  # draw grid after surfaces since they may be translucent
-        w.addItem(g)
+        plot_widget.addItem(g)
 
         curve = gl.GLSurfacePlotItem(shader='heightColor', computeNormals=False, smooth=False)
         curve.shader()['colorMap'] = np.array([0.2, 2, 0.5, 0.2, 1, 1, 0.2, 0, 2])
         curve.translate(-50, -50, 0)
-        w.addItem(curve)
+        plot_widget.addItem(curve)
 
         grid = QtGui.QGridLayout()
         grid.addWidget(w, 0,0,13,12)
