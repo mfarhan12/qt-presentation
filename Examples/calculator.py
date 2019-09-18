@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 import sys
 
-class CalculatorWidget(QtGui.QWidget):
+class CalculatorWidget(QtWidgets.QWidget):
     _num1 = 0
     _num2 = 0
     _operation = '+'
@@ -12,17 +12,17 @@ class CalculatorWidget(QtGui.QWidget):
         super(CalculatorWidget, self).__init__()
         self.setWindowTitle('Calculator Widget')
         self.setGeometry(300, 300, 50, 50)
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         
-        self.add = QtGui.QRadioButton('+')
+        self.add = QtWidgets.QRadioButton('+')
         self.add.click()
-        self.sub = QtGui.QRadioButton('-')
-        self.mul = QtGui.QRadioButton('X')
-        self.div = QtGui.QRadioButton('/')
-        self.spin1 = QtGui.QDoubleSpinBox()
-        self.spin2 = QtGui.QDoubleSpinBox()
+        self.sub = QtWidgets.QRadioButton('-')
+        self.mul = QtWidgets.QRadioButton('X')
+        self.div = QtWidgets.QRadioButton('/')
+        self.spin1 = QtWidgets.QDoubleSpinBox()
+        self.spin2 = QtWidgets.QDoubleSpinBox()
  
-        self.result_label = QtGui.QLabel('')
+        self.result_label = QtWidgets.QLabel('')
 
         grid.addWidget(self.spin1, 0,0,1,2)
         grid.addWidget(self.spin2, 0,2,1,2)
@@ -73,6 +73,7 @@ class CalculatorWidget(QtGui.QWidget):
                 self.result_label.setText('INF')
         
 # Launch the application
-app = QtGui.QApplication(sys.argv)
-ex = CalculatorWidget()
-sys.exit(app.exec_())
+app = QtWidgets.QApplication([])
+application = CalculatorWidget()
+application.show()
+sys.exit(app.exec())

@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 
-class SimpleSignal(QtGui.QWidget):
+class SimpleSignal(QtWidgets.QWidget):
     def __init__(self):
         super(SimpleSignal, self).__init__()
         self.setWindowTitle('Simple Signals')
         self.setGeometry(300, 300, 50, 50)
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         self._count = 0
 
-        self.result_label = QtGui.QLabel('%d' % self._count)
-        self.button = QtGui.QPushButton('+')
-        self.reset = QtGui.QPushButton('RESET')
+        self.result_label = QtWidgets.QLabel('%d' % self._count)
+        self.button = QtWidgets.QPushButton('+')
+        self.reset = QtWidgets.QPushButton('RESET')
 
 
         def add_count():
@@ -38,6 +38,6 @@ class SimpleSignal(QtGui.QWidget):
             self.result_label.setText('%d' % self._count)
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = SimpleSignal()
 sys.exit(app.exec_())

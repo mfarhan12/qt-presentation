@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 import numpy as np
 import pyqtgraph as pg
 
 
-class PLotExample(QtGui.QWidget):
+class PLotExample(QtWidgets.QWidget):
     def __init__(self):
         super(PLotExample, self).__init__()
         self.setWindowTitle('Simple PLot')
@@ -33,7 +33,7 @@ class PLotExample(QtGui.QWidget):
         region_selector.sigRegionChanged.connect(updatePlot)
         region_plot.sigXRangeChanged.connect(updateRegion)
         updatePlot()
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
 
         grid.addWidget(full_plot,0,0,1,3)
         grid.addWidget(region_plot,1,0,1,3)
@@ -41,6 +41,6 @@ class PLotExample(QtGui.QWidget):
         self.show()
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = PLotExample()
 sys.exit(app.exec_())

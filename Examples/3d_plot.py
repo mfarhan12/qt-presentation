@@ -1,11 +1,11 @@
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import pyqtgraph as pg
 import pyqtgraph.opengl as gl
 import numpy as np
 import random
 import sys
 
-class ThreeDPlot(QtGui.QWidget):
+class ThreeDPlot(QtWidgets.QWidget):
     amp = 5
     x_size = 160
     y_size = 150
@@ -16,17 +16,17 @@ class ThreeDPlot(QtGui.QWidget):
         super(ThreeDPlot, self).__init__()
         self.setGeometry(300, 300, 800, 350)
         plot_widget = gl.GLViewWidget()
-        self.rand_check = QtGui.QCheckBox('Enable Noise')
-        self.amplitude_spin = QtGui.QDoubleSpinBox()
+        self.rand_check = QtWidgets.QCheckBox('Enable Noise')
+        self.amplitude_spin = QtWidgets.QSpinBox()
         self.amplitude_spin.setRange(1, 50)
         self.amplitude_spin.setValue(self.amp)
 
-        self.x_spin = QtGui.QDoubleSpinBox()
+        self.x_spin = QtWidgets.QSpinBox()
         self.x_spin.setRange(1, 800)
         self.x_spin.setValue(self.x_size)
 
 
-        self.y_spin = QtGui.QDoubleSpinBox()
+        self.y_spin = QtWidgets.QSpinBox()
         self.y_spin.setRange(1, 800)
         self.y_spin.setValue(self.y_size)
 
@@ -42,13 +42,13 @@ class ThreeDPlot(QtGui.QWidget):
         curve.translate(-50, -50, 0)
         plot_widget.addItem(curve)
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(plot_widget, 0,0,13,12)
-        grid.addWidget(QtGui.QLabel('Amplitude'), 0,13,1,1)
+        grid.addWidget(QtWidgets.QLabel('Amplitude'), 0,13,1,1)
         grid.addWidget(self.amplitude_spin, 0,14,1,1)
-        grid.addWidget(QtGui.QLabel('X Size'), 1,13,1,1)
+        grid.addWidget(QtWidgets.QLabel('X Size'), 1,13,1,1)
         grid.addWidget(self.x_spin, 1,14,1,1)
-        grid.addWidget(QtGui.QLabel('Y Size'), 2,13,1,1)
+        grid.addWidget(QtWidgets.QLabel('Y Size'), 2,13,1,1)
         grid.addWidget(self.y_spin, 2,14,1,1)
         grid.addWidget(self.rand_check, 3,13,1,1)
 
@@ -78,6 +78,6 @@ class ThreeDPlot(QtGui.QWidget):
         self.show()
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = ThreeDPlot()
 sys.exit(app.exec_())

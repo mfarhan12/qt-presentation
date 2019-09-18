@@ -1,30 +1,30 @@
 #!/usr/bin/env python
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 TEXT_ITEMS = ['ITEM1', 'ITEM2', 'ITEM3']
-class Calculator(QtGui.QWidget):
-    new_calculation = QtCore.Signal(float, float, str, str)
+class Calculator(QtWidgets.QWidget):
+    new_calculation = QtCore.pyqtSignal(float, float, str, str)
     def __init__(self):
         super(Calculator, self).__init__()
 
         self.setWindowTitle('Controls Widget')
         self.setGeometry(300, 300, 50, 50)
 
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
 
         self._num1 = 0
         self._num2 = 0
         self._operation = '+'
 
-        self.add = QtGui.QRadioButton('+')
+        self.add = QtWidgets.QRadioButton('+')
         self.add.click()
-        self.sub = QtGui.QRadioButton('-')
-        self.mul = QtGui.QRadioButton('X')
-        self.div = QtGui.QRadioButton('/')
+        self.sub = QtWidgets.QRadioButton('-')
+        self.mul = QtWidgets.QRadioButton('X')
+        self.div = QtWidgets.QRadioButton('/')
 
-        self.spin1 = QtGui.QDoubleSpinBox()
-        self.spin2 = QtGui.QDoubleSpinBox()
+        self.spin1 = QtWidgets.QDoubleSpinBox()
+        self.spin2 = QtWidgets.QDoubleSpinBox()
 
         grid.addWidget(self.spin1, 0,0,1,1)
         grid.addWidget(self.spin2, 0,1,1,1)
@@ -72,13 +72,13 @@ class Calculator(QtGui.QWidget):
         except ZeroDivisionError:
             self.new_calculation.emit(self._num1, self._num2, self._operation, 'INF')
 
-class CalculatorWidget(QtGui.QWidget):
+class CalculatorWidget(QtWidgets.QWidget):
     def __init__(self):
         super(CalculatorWidget, self).__init__()
         self.setWindowTitle('Calculator')
         self.calculator = Calculator()
-        self.list = QtGui.QListWidget()
-        grid = QtGui.QGridLayout()
+        self.list = QtWidgets.QListWidget()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(self.calculator, 0,0,1,1)
         grid.addWidget(self.list, 1,0,1,1)
         self.setLayout(grid)
@@ -90,6 +90,6 @@ class CalculatorWidget(QtGui.QWidget):
         self.show()
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = CalculatorWidget()
 sys.exit(app.exec_())

@@ -1,27 +1,27 @@
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 
-class EventWidget(QtGui.QWidget):
+class EventWidget(QtWidgets.QWidget):
     def __init__(self):
         super(EventWidget, self).__init__()
         self.setWindowTitle('Event WIdget')
         self.show()
 
     def resizeEvent(self, event):
-        print event.size()
+        print(event.size())
 
     def mousePressEvent(self, event):
-        print event.button()
+        print(event.button())
 
     def keyPressEvent(self, event):
-        print event.text()
+        print(event.text())
 
     def moveEvent(self, event):
-        print event.pos()
+        print(event.pos())
 
     def closeEvent(self, event):
-        print 'Widget Closed'
+        print('Widget Closed')
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = EventWidget()
 sys.exit(app.exec_())

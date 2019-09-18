@@ -1,17 +1,17 @@
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 
-class PositioningWidget(QtGui.QWidget):
+class PositioningWidget(QtWidgets.QWidget):
     def __init__(self):
 		super(PositioningWidget, self).__init__()
 		self.setWindowTitle('Positioning Widget')
 		self.setGeometry(300, 300, 300, 300)
-		grid = QtGui.QGridLayout()
-		green_label = QtGui.QLabel('')
+		grid = QtWidgets.QGridLayout()
+		green_label = QtWidgets.QLabel('')
 		green_label.setStyleSheet('background-color: green')
-		yellow_label = QtGui.QLabel('')
+		yellow_label = QtWidgets.QLabel('')
 		yellow_label.setStyleSheet('background-color: yellow')
-		red_label = QtGui.QLabel('')
+		red_label = QtWidgets.QLabel('')
 		red_label.setStyleSheet('background-color: red')
 		grid.addWidget(green_label, 0,0,1,1)
 		grid.addWidget(yellow_label, 0,1,1,1)
@@ -20,6 +20,6 @@ class PositioningWidget(QtGui.QWidget):
 		self.show()
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = PositioningWidget()
 sys.exit(app.exec_())

@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore
 import sys
 import numpy as np
 import pyqtgraph as pg
 
 
-class PLotExample(QtGui.QWidget):
+class PLotExample(QtWidgets.QWidget):
     def __init__(self):
         super(PLotExample, self).__init__()
         self.setWindowTitle('Simple PLot')
@@ -22,7 +22,7 @@ class PLotExample(QtGui.QWidget):
         self.curve = line_plot.plot(pen = "r")
         self.curve.setData(x, wave)
         
-        grid = QtGui.QGridLayout()
+        grid = QtWidgets.QGridLayout()
         grid.addWidget(line_plot, 0,0,12,12)
         self.setLayout(grid)
 
@@ -30,6 +30,6 @@ class PLotExample(QtGui.QWidget):
         self.show()
 
 # Launch the application
-app = QtGui.QApplication(sys.argv)
+app = QtWidgets.QApplication(sys.argv)
 ex = PLotExample()
 sys.exit(app.exec_())
